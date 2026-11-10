@@ -4,7 +4,7 @@ A public-safe, static, five-language website for FrameLive (映刻): product int
 
 ## Publication status — November 10, 2026
 
-The owner explicitly authorized the independent public support repository and GitHub Pages publication. The public repository `wpowen/framelive-support` has been created with Issues enabled. The first Pages deployment is being prepared; live HTTPS readback remains pending until recorded below.
+The owner explicitly authorized the independent public support repository and GitHub Pages publication. The public repository `wpowen/framelive-support` has been created with Issues enabled. The first GitHub Actions verification and Pages deployment succeeded. Anonymous HTTPS readback on November 10, 2026 verified all 31 served artifact files against their local SHA-256 values; `.nojekyll` is the deployment marker and is not a served content check.
 
 - Site: https://wpowen.github.io/framelive-support/
 - Support: https://wpowen.github.io/framelive-support/en/support/
@@ -66,11 +66,11 @@ Do not copy the app repository, its Git history, `.git`, `App`, `Sources`, priva
 
 The verifier rejects unexpected files, symlinks, broken internal routes and anchors, missing language switches, mismatched hashes/policies, scripts, embeds and obvious credential patterns. It is a useful boundary check, not proof that arbitrary text contains no possible secret. The owner still reviews the full allowlisted payload.
 
-## Future GitHub Pages release procedure
+## GitHub Pages release procedure
 
 The workflow is deliberately stored under `website/.github/workflows/` in the private App checkout, where GitHub Actions will not discover it. It belongs under root `.github/workflows/` **only in the separate support repository**. It also guards the exact `wpowen/framelive-support` name and public visibility.
 
-After separate owner approval:
+For a new authorized deployment:
 
 1. Create only the support repository, leaving the main App repository private. Copy the exact allowlisted files, then inspect the entire initial public diff.
 2. Enable Issues. Confirm the contact chooser displays the supplied multilingual privacy warning and permits text-only submissions. Do not post a real issue as a deployment test.
@@ -117,3 +117,11 @@ PY
 ```
 
 In that folder, inspect `README.md`, `.github/`, `verify_public.py` and `public/` before approving any external action. A deployment never uses this folder's whole tree as its artifact; the workflow uploads only `public/`.
+
+## Verified public deployment
+
+- Deployment workflow: https://github.com/wpowen/framelive-support/actions/runs/42771778610 (verification and deployment succeeded).
+- Public repository: https://github.com/wpowen/framelive-support (37 reviewed files, independent history).
+- Anonymous HTTPS content: 31 served files matched the reviewed local artifact hashes. Five localized policy pages matched their plain-text policy files.
+- Anonymous Issue submission redirects to GitHub sign-in as disclosed; repository Issues are enabled and the reviewed support form is present. No issue or message was posted as a test, and a human support response was not tested.
+- The application repository remains private and has no Pages site enabled.
