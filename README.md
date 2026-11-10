@@ -1,6 +1,6 @@
 # FrameLive support website
 
-A public-safe, static, five-language website for FrameLive (映刻): product introduction, practical support, the current app privacy notice, and a bounded BinaryWolf template license notice. English, 简体中文, 繁體中文, 日本語 and 한국어 are complete pages. Language switches keep the current section. Policies, FAQs and contact links work without JavaScript. All visual artwork is original CSS; the small SVG brand mark is original. There are no external fonts, analytics, ads, cookies set by site code, or remote media embeds.
+A public-safe, static, five-language website for FrameLive (映刻): product introduction, practical support, the current app privacy notice, and content-rights / template-license information. English, 简体中文, 繁體中文, 日本語 and 한국어 are complete pages. Language switches keep the current section. Policies, FAQs and contact links work without JavaScript. The hero is an AI reference adaptation of an existing catalogue portrait, with separately composed wide and upright versions. The first-party enhancement gives the image a slow presentation movement. It does not demonstrate biological character movement. It is a web preview, not a native Live Photo or a system compatibility demonstration. Pause, reduced motion, offscreen and background-page handling are provided. With JavaScript disabled the complete content remains readable and the artwork is static. Reddit Sans is self-hosted under its SIL OFL notice. The small SVG brand mark is original. There are no analytics, ads, cookies set by site code, remote fonts or remote media embeds.
 
 ## Publication status — November 10, 2026
 
@@ -53,18 +53,19 @@ Configuration is public metadata only, in `website/site-config.json` on the priv
 
 ## Exact independent-repository payload
 
-Copy **only these 37 files**, preserving the paths below relative to the new repository root. The complete path list is also provided in the private-side `website/repository-files.json` for review.
+Copy **only these 43 files**, preserving the paths below relative to the new repository root. The complete path list is also provided in the private-side `website/repository-files.json` for review.
 
-- `public/**`: exactly 32 files accepted by `verify_public.py` (22 HTML pages, five plain-text policies, three assets, `.nojekyll`, and the build manifest).
+- `public/**`: exactly 37 files accepted by `verify_public.py` (22 HTML pages, five plain-text policies, eight assets, `.nojekyll`, and the build manifest).
 - `verify_public.py`
 - `README.md` (this document)
 - `.github/workflows/pages.yml`
 - `.github/ISSUE_TEMPLATE/config.yml`
 - `.github/ISSUE_TEMPLATE/support.yml`
+- `.github/ISSUE_TEMPLATE/copyright.yml`
 
 Do not copy the app repository, its Git history, `.git`, `App`, `Sources`, private-side `scripts`, tests, full creation ledgers, downloaded media, build output, signing material, or credentials. The site does not require any of them. `content/`, `assets/`, `site-config.json`, `VALIDATION.md` and the private generator remain with the private owner; deployed asset copies already exist in `public/assets/`. Only `public/` is the Pages artifact. README, workflow and verifier are repository infrastructure and are not deployed.
 
-The verifier rejects unexpected files, symlinks, broken internal routes and anchors, missing language switches, mismatched hashes/policies, scripts, embeds and obvious credential patterns. It is a useful boundary check, not proof that arbitrary text contains no possible secret. The owner still reviews the full allowlisted payload.
+The verifier rejects unexpected files, symlinks, broken internal routes and anchors, missing language switches, mismatched hashes/policies, unreviewed scripts or responsive assets, embeds and obvious credential patterns. The only permitted script is the local presentation-only motion enhancement; its code is also checked for network, storage and dynamic-code APIs. It is a useful boundary check, not proof that arbitrary text contains no possible secret. The owner still reviews the full allowlisted payload.
 
 ## GitHub Pages release procedure
 
@@ -80,6 +81,10 @@ For a new authorized deployment:
 6. Only after readback, change the private-side contact status from `planned` to `available`, document the actual URLs and release evidence, and regenerate when the policy or site changes. Do not describe local checks as successful production deployment.
 
 Workflow reference: [GitHub's custom Pages workflow guide](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages). The host may log visitors' IP addresses as disclosed in every language; [GitHub's privacy statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement) governs GitHub services.
+
+## Content and rights
+
+The five-language rights pages explain AI / third-party source boundaries, necessary permissions, user imports, copyright / portrait / trademark reporting, investigation and correction, and the inability to remotely recall copies saved to Photos or Files. A public GitHub Issue template accepts sanitized information and requires sign-in. Do not post private originals, identity documents or private orders. This general reporting channel is not a claim of global legal-notice compliance or statutory safe-harbor status. A notice or takedown promise does not supply missing permissions.
 
 ## License boundary
 

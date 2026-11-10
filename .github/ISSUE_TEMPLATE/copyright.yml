@@ -1,0 +1,56 @@
+name: Rights concern / 作品权利问题
+description: Report copyright, likeness or trademark concerns using public-safe information.
+title: '[Rights] '
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Public channel — GitHub account and sign-in required.** Choose English, 简体中文, 繁體中文, 日本語 or 한국어. Report copyright, likeness or trademark concerns, or clarify or challenge an earlier report. Use a work ID/title/URL and a brief rights explanation that is safe to publish. Do not post identity documents, private original images or videos, receipts/orders, addresses or other confidential evidence. Such private documents are not required here. No private email channel is currently provided; retain sensitive evidence privately. This report does not replace legal remedies or waive anyone’s rights.
+
+        **公开渠道，提交须有 GitHub 账号并登录。** 可反馈著作权、肖像、商标问题，或补充说明、提出异议。请用作品 ID／名称／URL 和可安全公开的简短权利依据说明。请勿上传证件、私人原图／视频、收据／订单、地址或其他敏感凭证；此处不要求这些资料。目前没有私人邮箱渠道，请私下保留敏感证据。反馈不替代法定救济，也不表示放弃任何权利。
+
+        **公開管道，提交須有 GitHub 帳號並登入。** 可回報著作權、肖像、商標問題，或補充說明、提出異議。請以作品 ID／名稱／URL 及可安全公開的簡短權利依據說明。請勿上傳身分證件、私人原圖／影片、收據／訂單、地址或其他敏感憑證；此處不要求這些資料。目前沒有私人電子郵件管道，請私下保留敏感證據。回報不取代法定救濟，也不表示放棄任何權利。
+
+        **公開窓口です。送信にはGitHubアカウントとログインが必要です。** 著作権・肖像・商標の問題や、補足説明・異議を受け付けます。作品ID・名称・URLと、安全に公開できる簡潔な権利の説明を記載してください。身分証明書、非公開の原本や動画、領収書・注文情報、住所などは投稿しないでください。これらの資料は求めません。非公開メール窓口は現在ありません。機密性のある証拠は公開せずに保管してください。報告は法律上の救済や権利に影響しません。
+
+        **공개 창구입니다. 제출하려면 GitHub 계정과 로그인이 필요합니다.** 저작권·초상·상표 문제, 보충 설명 또는 이의를 알려 주세요. 작품 ID·이름·URL과 안전하게 공개할 수 있는 간단한 권리 근거를 적어 주세요. 신분증, 비공개 원본이나 동영상, 영수증·주문 정보, 주소 등은 올리지 마세요. 이러한 자료는 요구하지 않습니다. 현재 비공개 이메일 창구는 없으므로 민감한 증거는 비공개로 보관해 주세요. 신고는 법률상 구제 수단이나 권리를 포기하는 것이 아닙니다.
+  - type: textarea
+    id: work
+    attributes:
+      label: Work ID, title or URL / 作品标识
+      description: Identify the work and where you saw it (website or app). Use public URLs only; never include private or access-bearing links.
+      placeholder: 'Work ID or title; public page URL if available.'
+    validations:
+      required: true
+  - type: dropdown
+    id: concern
+    attributes:
+      label: Type of concern / 问题类型
+      options:
+        - Copyright / 著作权
+        - Likeness or portrait / 肖像
+        - Trademark / 商标
+        - Clarification or objection / 补充说明或异议
+        - Other rights concern / 其他权利问题
+    validations:
+      required: true
+  - type: textarea
+    id: basis
+    attributes:
+      label: Public-safe rights explanation / 可公开的权利依据
+      description: Briefly describe the right, your relationship to it (for example, creator, rights holder or representative), and the disputed use. An existing public source link may help. For an objection, explain the point and link the earlier public issue if safe. Do not attach identity documents, private originals, receipts or orders.
+    validations:
+      required: true
+  - type: textarea
+    id: requested_action
+    attributes:
+      label: Requested action or clarification / 期望处理
+      description: Optional. Describe the removal, correction, review or other action you request. Do not include private contact details.
+    validations:
+      required: false
+  - type: markdown
+    attributes:
+      value: |
+        We review the information provided. If an initial review gives reasonable grounds for concern, we may pause display or distribution, remove a work or correct its presentation while checking the facts. Verification and consideration of clarification or objections remain available. Copies already saved to Photos or Files cannot be remotely recalled. This process does not exclude statutory rights or remedies, liability for unlawful intentional conduct or gross negligence, or other liability that cannot legally be excluded or limited.
+
+        我们会核查所提供的信息。初步核查有合理依据时，可在进一步核验期间暂停展示或分发、下架或更正，并保留核验、补充说明和异议机会。已保存到照片／文件的副本无法远程撤回。此流程不排除法定权利与救济、违法故意或重大过失责任，或其他依法不得排除或限制的责任。

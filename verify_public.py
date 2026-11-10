@@ -15,6 +15,8 @@ EXPECTED = {'index.html', '404.html', '.nojekyll', 'build-manifest.json',
             'assets/style.css', 'assets/icon.svg', 'assets/binarywolf-template-license.txt'}
 EXPECTED.update(lang+'/'+page+'index.html' for lang in LOCALES for page in PAGES)
 EXPECTED.update(lang+'/privacy.txt' for lang in LOCALES)
+EXPECTED.update('assets/'+name for name in ('frost-adaptation-v3.webp', 'frost-mobile-v3.webp', 'motion.js', 'reddit-sans.ttf', 'reddit-sans-license.txt'))
+BINARY = {'assets/frost-adaptation-v3.webp', 'assets/frost-mobile-v3.webp', 'assets/reddit-sans.ttf'}
 SECRET = re.compile(r'-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----|gh[pousr]_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|sk-(?:proj-)?[A-Za-z0-9_-]{24,}|/Users/|/Volumes/|\b(?:AKIA)[A-Z0-9]{16}\b')
 
 
@@ -25,6 +27,7 @@ class Page(HTMLParser):
         self.ids = set()
         self.policy = []
         self.in_policy = False
+        self.in_script = False
         self.lang = None
         self.languages = {}
         self.summaries = 0
@@ -35,8 +38,12 @@ class Page(HTMLParser):
 
     def handle_starttag(self, tag, attributes):
         attrs = dict(attributes)
-        if tag in ('script', 'iframe', 'form', 'object', 'embed', 'video', 'audio', 'base'):
+        if tag in ('iframe', 'form', 'object', 'embed', 'video', 'audio', 'base'):
             raise ValueError('Non-static or embedded content: '+tag)
+        if tag == 'script':
+            if not attrs.get('src') or 'defer' not in attrs or set(attrs) - {'src', 'defer'}:
+                raise ValueError('Only the reviewed deferred local motion script is allowed')
+            self.in_script = True
         if any(name.lower().startswith('on') for name in attrs):
             raise ValueError('Executable HTML handler')
         if attrs.get('id'):
@@ -56,14 +63,22 @@ class Page(HTMLParser):
         for key in ('href', 'src'):
             if key in attrs:
                 self.links.append((tag, attrs[key]))
-        if 'srcset' in attrs or 'style' in attrs:
+        if 'srcset' in attrs:
+            if tag != 'source' or attrs.get('media') != '(max-width: 600px)' or attrs.get('type') != 'image/webp' or set(attrs) != {'srcset', 'media', 'type'}:
+                raise ValueError('Unreviewed responsive image')
+            self.links.append(('source', attrs['srcset']))
+        if 'style' in attrs:
             raise ValueError('Unreviewed inline asset reference')
 
     def handle_endtag(self, tag):
+        if tag == 'script':
+            self.in_script = False
         if tag == 'pre':
             self.in_policy = False
 
     def handle_data(self, data):
+        if self.in_script and data.strip():
+            raise ValueError('Inline scripts are not allowed')
         self.text.append(data)
         if self.in_policy:
             self.policy.append(data)
@@ -81,7 +96,8 @@ def target_for(current, url, site_url):
             return None
         if parsed.netloc != base.netloc or not parsed.path.startswith(base.path):
             # External navigation is allowed; external assets are rejected by verify.
-            if parsed.query or parsed.fragment:
+            copyright_url = 'https://github.com/wpowen/framelive-support/issues/new?template=copyright.yml'
+            if (parsed.query or parsed.fragment) and url != copyright_url:
                 raise ValueError('Unreviewed external URL parameters')
             return None
         path = parsed.path[len(base.path):]
@@ -120,6 +136,12 @@ def verify(root):
         data = (root/name).read_bytes()
         if name != 'build-manifest.json' and hashlib.sha256(data).hexdigest() != manifest['files'][name]:
             raise ValueError('Artifact hash mismatch: '+name)
+        if name in BINARY:
+            if name.endswith('.webp') and (data[:4] != b'RIFF' or data[8:12] != b'WEBP' or len(data) > 1_000_000):
+                raise ValueError('Invalid or oversized reviewed portrait')
+            if name.endswith('.ttf') and (data[:4] != b'\x00\x01\x00\x00' or len(data) > 400_000):
+                raise ValueError('Invalid or oversized reviewed font')
+            continue
         text = data.decode('utf-8')
         if SECRET.search(text):
             raise ValueError('Possible private content in '+name)
@@ -137,6 +159,10 @@ def verify(root):
                     raise ValueError('External stylesheet or link resource')
                 continue
             path, fragment = target
+            if tag == 'source' and (path != 'assets/frost-mobile-v3.webp' or fragment):
+                raise ValueError('Unreviewed responsive image source')
+            if tag == 'script' and path != 'assets/motion.js':
+                raise ValueError('Unreviewed local script')
             if path not in actual:
                 raise ValueError('Broken internal link: '+name+' -> '+url)
             if fragment and (path not in pages or fragment not in pages[path].ids):
@@ -153,8 +179,14 @@ def verify(root):
         if support.summaries < 9 or 'contact' not in support.ids or 'contact-warning' not in support.ids:
             raise ValueError('Missing FAQ or safe contact')
     css = (root/'assets/style.css').read_text(encoding='utf-8')
-    if re.search(r'@import|url\s*\(|expression\s*\(', css, re.I):
-        raise ValueError('Unexpected CSS asset request or executable expression')
+    if re.search(r'@import|expression\s*\(', css, re.I):
+        raise ValueError('Unexpected CSS import or executable expression')
+    for match in re.finditer(r'url\(\s*[\"\']?([^\"\')]+)[\"\']?\s*\)', css, re.I):
+        if match.group(1) != 'reddit-sans.ttf':
+            raise ValueError('Unreviewed CSS asset request')
+    script = (root/'assets/motion.js').read_text(encoding='utf-8')
+    if re.search(r'\b(fetch|XMLHttpRequest|WebSocket|EventSource|eval|localStorage|sessionStorage)\b|document\.cookie|sendBeacon|innerHTML', script):
+        raise ValueError('Motion script must have no network, storage or dynamic code')
     svg = (root/'assets/icon.svg').read_text(encoding='utf-8')
     if re.search(r'<script|<foreignObject|\bhref\s*=|\bon\w+\s*=', svg, re.I):
         raise ValueError('Unexpected executable or external SVG content')
