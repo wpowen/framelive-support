@@ -1,0 +1,26 @@
+name: Question or problem / 使用帮助
+description: Ask a question or describe a problem without private media.
+title: '[Support] '
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **This issue is public.** Do not upload personal photos, videos, Apple receipts/orders, device identifiers or unreviewed reports. Private media is never required for support. A text description is enough. Choose any supported language.
+        **此处公开。** 请勿上传私人照片、视频、Apple 订单、设备标识或未检查的报告，用文字描述即可。
+        **此處公開。** 請勿上傳私人照片、影片、Apple 訂單、裝置識別碼或未檢查的報告。
+        **公開されます。** 個人の写真・動画、Appleの注文、端末識別子、未確認のレポートは送らないでください。
+        **공개됩니다.** 개인 사진·동영상, Apple 주문, 기기 식별자, 검토하지 않은 보고서는 올리지 마세요.
+  - type: input
+    id: versions
+    attributes:
+      label: App and iOS versions / 版本
+      description: Versions only; do not include device identifiers.
+    validations:
+      required: false
+  - type: textarea
+    id: question
+    attributes:
+      label: Question or steps / 问题或操作步骤
+      description: What did you try, what did you expect, and what happened? Text only; no personal material needed.
+    validations:
+      required: true

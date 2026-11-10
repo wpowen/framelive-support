@@ -1,0 +1,39 @@
+FrameLive Privacy Notice
+Applies to: on-device editing and wallpaper download builds
+Updated: November 10, 2026
+
+What we process
+You can choose a video, adjust a clip on device, or create Live Photos with procedural motion. The app has no accounts, ads, tracking, analytics SDKs, or remote AI services. It does not upload your media, drafts, or usage behavior to developer servers, and it does not sell that data.
+
+Choosing video and saving photos
+The system photo picker only provides media you actively select. File import only reads files you choose. The app does not request permission to browse your entire photo library. Only when you tap to download a wallpaper or save a Live Photo does it request permission to add items to Photos. If you decline, you can still preview and create; you can change permission later in Settings. Spatial preview uses on-device device motion to adjust perspective and does not upload or store that motion data.
+
+On-device drafts and temporary media
+Creation drafts are stored in the app’s on-device Application Support directory and include work versions, fixed composition identifiers, palette and intensity choices, and created/updated dates. You can continue editing after quitting and reopening the app. Procedural creation parameters are saved today; the imported-video editor does not yet restore drafts. Finished Live Photos, paired video, parameter snapshots, and save state live in on-device finished storage and can be reopened from Create → Exported.
+Copies of videos you choose and unfinished generation files live in the app temporary directory and may be removed by new work or system cleanup. Finished works remain on device; saving to Photos requires a separate explicit action.
+
+Exporting video files
+You may export a video to a location you choose in the system Files experience. That service may sync files according to your account settings; the app does not receive those files. Deleting an in-app finished work does not delete an exported video—manage that file where you saved it.
+
+Retention and deletion
+Delete drafts or local finished works from Create using the item actions—no account required. Drafts remain until you delete them or uninstall the app. Damaged or unsupported draft versions are not overwritten automatically and can still be deleted. Deleting a draft does not delete exported on-device finished works; deleting a finished work does not delete its draft. Deleting a draft does not delete copies already saved to Photos—manage those in Photos. Uninstalling removes on-device app data; system backup/restore may also apply based on your device settings.
+
+Preset works and file metadata
+Some preset images and videos were AI-created during development. Motion uses prepared video or on-device rules; your media is not uploaded for this purpose. The app reads file metadata inside its own container to check resources and avoid overwrites; this is not used for tracking.
+
+System services
+Media you choose may come from iCloud, and works saved to Photos may sync with Photos. App data may also be included in device backups. Those system services are controlled by your Apple Account, iCloud, and backup settings, and are not uploads from this app to the developer.
+
+Versions and changes
+This notice covers on-device editing and Apple-hosted wallpaper downloads. If networked generation, analytics, or other services are added later, data-handling disclosures and related choices will be updated first.
+
+Optional developer support
+You may offer voluntary one-time support using Apple In-App Purchase. Apple processes payments. The app uses StoreKit to obtain product prices and verified transaction results; it does not receive your card or payment account details or upload transaction records to a developer server. Support does not unlock wallpapers or features. All wallpapers remain free to use.
+
+Apple-hosted wallpaper downloads
+On iOS 26 or later, additional wallpapers may be delivered by Apple's Background Assets service. Apple handles the network requests and delivery under its service policies; these requests may involve network and delivery information such as your IP address. Your chosen videos and drafts are not sent to Apple for wallpaper generation. Built-in works and local editing remain available without this download service. Downloaded media, catalogs and file hashes are cached in the app's container or its shared download container; the app's own download cache is excluded from backup. Removing the app removes its local cache; the system manages its own asset storage separately.
+
+Local save and download records
+After saving a Live Photo, the app may keep a local confirmation containing the Photos local identifier, paired-file identifiers and hashes, save date and iOS version. Download checks may keep local records of the app build, content/pack identifiers, file hashes, elapsed times, progress and errors. These records help distinguish download or Photos-save success from system-wallpaper eligibility. The app uses an elapsed-time clock for preview and download timing, not tracking or fingerprinting. Records are not automatically sent to the developer. A download check report is shared only when you explicitly export it and choose a destination in the system share sheet; review it before sharing. Removing an in-app work does not automatically erase these separate diagnostic records; local records remain until the app is removed. Copies you share are managed at their destination.
+
+While you browse, the app quietly checks for catalog updates, caches small covers, and automatically prepares the current wallpaper and a limited number of nearby wallpapers. Pull to refresh checks again. Browsing does not save anything to Photos.
